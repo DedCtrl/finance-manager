@@ -1,0 +1,119 @@
+import React, { useState } from 'react'
+import { getDatabase, ref, push, set } from "firebase/database";
+import { initializeApp } from "firebase/app";
+import app from "../../FirebaseConfig";
+import { getAuth } from 'firebase/auth';
+const AddBudget = ({ setAddBudget }) => {
+
+    const [date, setDate] = useState("");
+    const [category, setCategory] = useState("");
+    const [amount, setAmount] = useState("");
+
+
+  const auth = getAuth()
+  
+  const db = getDatabase(app);
+
+  const addBudget =()=>{
+    const user = auth.currentUser;
+  const uid = user.uid
+  const newDocRef = push(ref(db, `users/${uid}/budgets`))
+    set(newDocRef, {
+      date,
+      category,
+      amount
+    }).then(()=>{
+      setAddBudget(false)
+      setDate("");
+      setCategory("");
+      setAmount("");
+    })
+  }
+
+
+  return (
+    <div className=' h-screen w-full shadow-lg z-100 backdrop-blur-[1px] fixed  backdrop-brightness-50 flex items-center justify-center'>
+       
+            <div class="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 relative">
+    
+
+    <button
+    onClick={()=>{
+        setAddBudget(false)
+    }}
+    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+      ✕
+    </button>
+
+    <h2 className="text-xl font-semibold text-gray-900">Add New Budget</h2>
+    <p className="text-sm text-gray-500 mt-1">
+      Set a spending limit for a category
+    </p>
+
+
+    <div className="mt-6 space-y-4">
+
+   
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Category
+        </label>
+        <select
+          className="w-full bg-gray-100 rounded-lg px-4 py-2 text-gray-700 outline-none"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option>Select a category</option>
+          <option value="food">Food & Dining</option>
+          <option value="transport">Transportation</option>
+          <option value="shopping">Shopping</option>
+          <option value="entertainment">Entertainment</option>
+              <option value="bills">Bills & Utilities</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="education">Education</option>
+              <option value="salary">Salary</option>
+              <option value="other">Other</option>
+    </select>
+      </div>
+
+      
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Budget Amount
+        </label>
+        <input
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          type="number"
+          placeholder="0.00"
+          className="w-full bg-gray-100 rounded-lg px-4 py-3 text-gray-600 focus:outline-none"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Month-Year
+        </label>
+        <input
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          type="month"
+          className="w-full bg-gray-100 rounded-lg px-4 py-3 text-gray-600 focus:outline-none"
+        />
+      </div>
+
+   
+
+
+
+      <button onClick={addBudget} className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-900 transition">
+        Add Budget
+      </button>
+
+    </div>
+  </div>
+       
+    </div>
+  )
+}
+
+export default AddBudget
