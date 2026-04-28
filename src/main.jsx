@@ -6,7 +6,7 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
 
-    <BrowserRouter>
+    <BrowserRouter basename="/Finance-manager">
       <App />
     </BrowserRouter>
 
