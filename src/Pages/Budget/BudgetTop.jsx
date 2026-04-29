@@ -10,7 +10,7 @@ const BudgetTop = ({ setAddBudget, setSelectedMonth, selectedMonth }) => {
       <div>
       <label className='text-lg font-semibold'>Search</label>
       <input
-      className='bg-white p-3 border border-gray-200 ml-5'
+      className='bg-white p-3 border border-gray-200 ml-5 rounded-xl shadow-sm'
       type="month" value={selectedMonth}  onChange={(e) => setSelectedMonth(e.target.value)} />
       </div>
 

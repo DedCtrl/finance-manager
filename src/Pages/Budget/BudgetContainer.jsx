@@ -110,6 +110,9 @@ if (selectedMonth !== "") {
             {filteredBudgets.map((budget)=>{
               const spent = getSpent(budget.category, budget.date);
   const remaining = budget.amount - spent;
+  const progress = spent * 100 / budget.amount 
+  console.log(progress);
+  
               return(
               <div className='bg-white mb-5 h-50 flex justify-between flex-col w-full border border-gray-200 rounded px-5 py-4 shadow-md  '>
                 <div className='flex justify-between  items-center'>
@@ -128,20 +131,33 @@ if (selectedMonth !== "") {
 
 
                 </div>
-                <div className='flex justify-between  gap-5 items-center'>
-    <div className=' h-20'>
+                <div className='flex justify-between mt-4  gap-5 items-center'>
+    <div className=' h-17'>
     <h1 className='text-gray-500 text-[15px]'>Total Budget</h1>
     <h1 className='font-bold text-xl'>{budget.amount}</h1>
     </div>
-    <div className=' h-20 '>
+    <div className=' h-17 '>
     <h1 className='text-gray-500 text-[15px]'>Spent</h1>
     <h1 className='font-bold text-blue-500 text-xl'>{spent}</h1>
     </div>
-    <div className=' h-20 '>
+    <div className=' h-17 '>
     <h1 className='text-gray-500 text-[15px]'>Remaining</h1>
     <h1 className='font-bold text-xl'>{remaining}</h1>
     </div>
             </div>
+            
+            <div className='w-full h-15 '>
+              <div className='flex justify-between items-center'>
+                <h1 className='text-gray-500 text-sm'>Progress</h1>
+                <h1 className='text-gray-500 text-sm'>{progress}%</h1>
+                </div>
+                <div className='bg-[#CDCCD0] w-full h-2 mt-2 rounded-xl'>
+                  <div className='bg-black h-full   rounded-xl ' style={{width:`${progress}%`}}></div>
+                </div>
+            </div>
+
+
+
               </div>)
             })}
 

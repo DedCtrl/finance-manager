@@ -99,6 +99,15 @@ const totalSpent = transactions.reduce((total, t) => {
 
 const remaning = totalBudget - totalSpent
 
+
+ const progress = totalSpent * 100 / totalBudget
+
+const finalProgress = Number(progress.toFixed(1))
+
+
+ 
+ 
+
   return (
     <div className='w-full h-70 px-8 '>
         <div className='w-full h-full flex flex-col justify-between  bg-white border px-6 py-4 border-gray-200 shadow-md rounded-xl '>
@@ -121,7 +130,13 @@ const remaning = totalBudget - totalSpent
     </div>
             </div>
             <div className='w-full h-15 '>
+              <div className='flex justify-between items-center'>
                 <h1 className='text-gray-500 text-sm'>Progress</h1>
+                <h1 className='text-gray-500 text-sm'>{finalProgress}%</h1>
+                </div>
+                <div className='bg-[#CDCCD0] w-full h-3 mt-2 rounded-xl'>
+                  <div className='bg-black h-full   rounded-xl ' style={{width:`${finalProgress}%`}}></div>
+                </div>
             </div>
         </div>
     </div>
