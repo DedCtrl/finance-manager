@@ -26,22 +26,19 @@ const Navbar = () => {
         <span>Dashboard</span>
       </NavLink>
 
-      <NavLink to="/expenses" className={navItem}>
+      <NavLink to="/transactions" className={navItem}>
         <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt w-5 h-5"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg>
-        <span>Expenses</span>
+        <span>Transactions</span>
       </NavLink>
 
-      <NavLink to="/analytics" className={navItem}>
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z" />
-          <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
-        </svg>
-        <span>Analytics</span>
-      </NavLink>
-
+    
       <NavLink to="/budget" className={navItem}>
         <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet w-5 h-5" data-fg-ujl3="2.26:2.6924:/src/app/pages/layout.tsx:63:13:1995:33:e:item.icon" data-fgid-ujl3=":r7h:"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg>
         <span>Budget</span>
+      </NavLink>
+      <NavLink to="/savings" className={navItem}>
+      <svg className="w-5.5 h-5.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-piggy-bank w-5 h-5" data-fg-ujl3="2.26:2.6924:/src/app/pages/layout.tsx:65:13:2066:33:e:item.icon" data-fgid-ujl3=":r4gp:"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2V5z"></path><path d="M2 9v1c0 1.1.9 2 2 2h1"></path><path d="M16 11h.01"></path></svg>
+        <span>Savings</span>
       </NavLink>
 
       <NavLink to="/settings" className={navItem}>

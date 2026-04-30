@@ -15,7 +15,7 @@ useEffect(() => {
   setSelectedMonth(month);
 }, []);
    
-console.log(selectedMonth);
+
 
   
   return (

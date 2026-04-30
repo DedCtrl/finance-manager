@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 import { Routes, Route } from 'react-router-dom'
 import { getDatabase } from "firebase/database";
 import Dashboard from './components/Dashboard';
-import Analytics from './Pages/Analytics';
+import Savings from './Pages/Savings';
 import Budget from './Pages/Budget';
 import Setting from './Pages/Setting';
 import Expenses from './Pages/Expenses';
@@ -19,10 +19,10 @@ const App = () => {
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<SignIn />} />
         <Route path='/Dashboard' element={<Dashboard />} />
-        <Route path='/Analytics' element={<Analytics/>} />
+        <Route path='/Savings' element={<Savings/>} />
         <Route path='/Budget' element={<Budget />} />
         <Route path='/Settings' element={<Setting />} />
-        <Route path='/Expenses' element={<Expenses />} />
+        <Route path='/Transactions' element={<Expenses />} />
       </Routes>
     </div>
   )

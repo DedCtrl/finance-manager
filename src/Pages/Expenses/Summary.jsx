@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 import app from "../../FirebaseConfig";
     
 import { onAuthStateChanged } from "firebase/auth";
-const Summary = ({Search}) => {
+const Summary = ({Search, selectedMonth}) => {
 
   const [TotalAmount, setTotalAmount] = useState(0)
   const [SummaryCss, setSummaryCss] = useState('text-green-700')
@@ -27,20 +27,25 @@ useEffect(() => {
       const data = snapshot.val();
       if (!data) return;
 
-      const transactions = Object.values(data);
+      const allTransactions = Object.values(data);
 
-      let totalExpense = 0;
-      let totalIncome = 0;
+const transactions = allTransactions.filter((t) => {
+  if (!selectedMonth) return true;
 
+  const transactionMonth = new Date(t.date).toISOString().slice(0, 7);
+  return transactionMonth === selectedMonth;
+});
 
+let totalExpense = 0;
+let totalIncome = 0;
 
-      transactions.forEach((transaction) => {
-        if (transaction.type === "Expense") {
-          totalExpense += Number(transaction.amount);
-        } else if (transaction.type === "Income") {
-          totalIncome += Number(transaction.amount);
-        }
-      });
+transactions.forEach((transaction) => {
+  if (transaction.type === "Expense") {
+    totalExpense += Number(transaction.amount);
+  } else if (transaction.type === "Income") {
+    totalIncome += Number(transaction.amount);
+  }
+});
 
       let balance = totalIncome - totalExpense;
 
@@ -70,7 +75,7 @@ if (Search === "Expense") {
   });
 
   return () => unsubscribeAuth(); // cleanup auth listener
-}, [Search]);
+}, [Search, selectedMonth]);
   
     
   

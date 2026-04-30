@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddExpense from "./AddExpense";
 
-const ExpensesTop = ( { setIsOpen } ) => {
+const ExpensesTop = ( { setIsOpen,setSelectedMonth,selectedMonth } ) => {
 
 
   
@@ -12,9 +12,16 @@ const ExpensesTop = ( { setIsOpen } ) => {
   return (
     <div className="w-full h-25 px-8 py-5 flex justify-between items-center ">
       <div>
-        <h1 className="text-3xl font-bold">Expenses</h1>
+        <h1 className="text-3xl font-bold">Transactions</h1>
         <h3 className="text-[#6A7282]">Track and manage your transactions</h3>
       </div>
+      <div>
+<label className='text-lg font-semibold'>Search</label>
+      <input
+      className='bg-white p-3 border border-gray-200 ml-5 rounded-xl shadow-sm'
+      type="month" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}/>
+      </div>
+
       <div onClick={
         () => {
           setIsOpen(true)

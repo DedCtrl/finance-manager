@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, push, set, onValue, get, remove } from "firebase/database";
 import app from "../../FirebaseConfig";
 
-const Transactions = ({ Search }) => {
+const Transactions = ({ Search , setSelectedMonth , selectedMonth }) => {
 const [amountCss, setAmountCss] = useState('text-green-500')
 const [logo, setLogo] = useState('💰')
 const [sign, setSign] = useState('-')
@@ -43,10 +43,22 @@ const handleDelete =(id)=>{
 }
 
 
-const transactionFilter = transaction.filter((t)=>{
-return t.description.toLowerCase().includes((Search || '').toLowerCase()) || t.category.toLowerCase().includes((Search || '').toLowerCase()) || t.type.toLowerCase().includes((Search || '').toLowerCase())
+const transactionFilter = transaction.filter((t) => {
+  const search = (Search || '').toLowerCase();
 
-})
+  const matchesSearch =
+    t.description.toLowerCase().includes(search) ||
+    t.category.toLowerCase().includes(search) ||
+    t.type.toLowerCase().includes(search);
+
+  const transactionMonth = new Date(t.date).toISOString().slice(0, 7);
+
+  const matchesMonth = selectedMonth
+    ? transactionMonth === selectedMonth
+    : true;
+
+  return matchesSearch && matchesMonth;
+});
  
   return (
     <div className=' bg-white min-h-90 mx-8 px-8 py-4 shadow-md rounded-xl border border-gray-200  h-full flex flex-col   '>
