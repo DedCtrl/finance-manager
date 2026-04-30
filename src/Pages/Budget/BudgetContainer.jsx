@@ -71,6 +71,9 @@ useEffect(() => {
   return () => unsubscribeAuth();
 },[])
 
+
+
+
     const getSpent =(category, month)=>{
         return transactions.reduce((total, transaction) => {
           const transactionCategory = transaction.category === category && transaction.type === "Expense" 
@@ -111,7 +114,7 @@ if (selectedMonth !== "") {
               const spent = getSpent(budget.category, budget.date);
   const remaining = budget.amount - spent;
   const progress = spent * 100 / budget.amount 
-  console.log(progress);
+
   
               return(
               <div className='bg-white mb-5 h-50 flex justify-between flex-col w-full border border-gray-200 rounded px-5 py-4 shadow-md  '>

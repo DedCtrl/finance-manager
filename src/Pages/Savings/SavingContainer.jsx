@@ -1,6 +1,80 @@
-import React from 'react'
-
+import React, {  useEffect, useState } from 'react'
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getDatabase, ref, push, set, onValue, get, remove } from "firebase/database";
+import app from "../../FirebaseConfig";
 const SavingContainer = () => {
+
+const [goals, setGoals] = useState([])
+const [budgets, setBudgets] = useState([])
+
+const auth = getAuth()
+const db = getDatabase(app)
+
+useEffect(()=>{
+const unsubscribeAuth = onAuthStateChanged(auth, (user)=>{
+if(!user) return;
+
+const dbRef = ref(db, `users/${user.uid}/goals`);
+const unsubscribeDB = onValue(dbRef, (snapshot)=>{
+const data = snapshot.val()
+if(!data){
+  setGoals([]);
+  return;
+}
+
+const goals = Object.entries(data).map(([id, value])=>({
+  id,
+  ...value
+}))
+
+setGoals(goals)
+
+})
+
+return ()=>{
+  unsubscribeDB()
+}
+
+}) 
+
+return () => unsubscribeAuth();
+
+},[])
+
+useEffect(() => {
+  const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+    if (!user) return;
+
+    const dbRef = ref(db, `users/${user.uid}/budgets`);
+
+    const unsubscribeDB = onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+
+      if (!data) {
+        setBudgets([]);
+        return;
+      }
+
+      const budgets = Object.entries(data).map(([id, value]) => ({
+        id,
+        ...value
+      }));
+
+      setBudgets(budgets);
+    });
+
+    return () => unsubscribeDB();
+  });
+
+  return () => unsubscribeAuth();
+}, []);
+
+console.log(goals);
+console.log(budgets);
+
+
+
+
   return (
     <div className='px-8 mt-8 w-full h-auto'>
         <div className=' min-h-80 w-full  py-5 '>
