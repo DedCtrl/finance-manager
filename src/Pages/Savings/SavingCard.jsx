@@ -1,9 +1,10 @@
 import React from 'react'
 
-const SavingCard = () => {
+const SavingCard = ({setRemaining, Remaining, setTotalBudget, TotalBudget, TotalSpent, setTotalSpent}) => {
 
     
   return (
+    
     <div className="w-full h-45  px-8 py-3 gap-7  flex justify-between items-center">
 
 
@@ -11,7 +12,7 @@ const SavingCard = () => {
         <div className='bg-white w-1/3 border  border-gray-200 h-full rounded-xl shadow-md px-5 py-5 flex flex-col justify-between ' >
         <div className='flex justify-between flex-col  '>
             <h1 className='font-semibold text-[16px]'>Budget Remainder</h1>
-            <h1 className='text-4xl font-semibold'>$100</h1>
+            <h1 className='text-4xl font-semibold'>{Remaining.toFixed(2)}</h1>
              </div>
             <p className='text-[12px] text-gray-500'>Unspent budget this month</p>
         </div>

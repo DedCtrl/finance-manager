@@ -59,7 +59,10 @@ const transactionFilter = transaction.filter((t) => {
 
   return matchesSearch && matchesMonth;
 });
- 
+
+
+
+
   return (
     <div className=' bg-white min-h-90 mx-8 px-8 py-4 shadow-md rounded-xl border border-gray-200  h-full flex flex-col   '>
         <h1 className='text-[18px] font-semibold'>Transactions</h1>
