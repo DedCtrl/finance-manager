@@ -7,7 +7,7 @@ import { getAuth } from 'firebase/auth';
 const AddSaving = ({setAddSaving, AddSaving}) => {
     const [goalName, setGoalName] = useState('')
     const [goalAmount, setGoalAmount] = useState('')
-
+    const [savedAmount, setSavedAmount] = useState(0)
     const auth = getAuth()
     const db = getDatabase(app)
 
@@ -17,7 +17,8 @@ const AddSaving = ({setAddSaving, AddSaving}) => {
         const newDocRef = push(ref(db,`users/${uid}/goals`))
         set(newDocRef,{
             goalName:goalName,
-            goalAmount:goalAmount
+            goalAmount:goalAmount,
+            savedAmount:savedAmount
         }).then(()=>{
             setGoalAmount('')
             setGoalName('')

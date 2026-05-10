@@ -7,15 +7,22 @@ import SavingTop from './Savings/SavingTop'
 import SavingCard from './Savings/SavingCard'
 import SavingContainer from './Savings/SavingContainer'
 import AddSaving from './Savings/AddSaving'
+import AddAmountPg from './Savings/AddAmountPg'
+import { add } from 'firebase/firestore/pipelines';
+
 
 const Savings = () => {
 
   const [addSaving, setAddSaving] = useState(false)
+  const [activeGoalId, setActiveGoalId] = useState(null)
   const [Budgets, setBudgets] = useState([])
     const [transactions, setTransactions] = useState([])
     const [Remaining, setRemaining] = useState(0)
     const [TotalBudget, setTotalBudget] = useState(0)
     const [TotalSpent, setTotalSpent] = useState(0)
+    const [addAmountTrigger, setaddAmountTrigger] = useState(false)
+    const [amountToSave, setAmountToSave] = useState('')
+    const [totalSaved, setTotalSaved] = useState(0)
 
 
  const date = new Date();
@@ -112,25 +119,46 @@ useEffect(() => {
     return total;
   }, 0);
 
-  const remaining = totalBudget - totalSpent;
+  const remaining = totalBudget - totalSpent - totalSaved; // subtract totalSaved from remaining budget
 
   setRemaining(remaining);
   setTotalBudget(totalBudget);
   setTotalSpent(totalSpent);
 
-}, [Budgets, transactions, prevMonthName]);
+}, [Budgets, transactions, prevMonthName,totalSaved]);
+
+
+const addPrevMonthSaving = ()=>{
+  const user = auth.currentUser;
+  const uid = user.uid
+        const dbRef = ref(db,`users/${uid}/monthlySavings/${prevMonthName}`)
+        set(dbRef,{
+            amount:Remaining,
+            date:prevMonthName
+        })
+}
+
+useEffect(() => {
+  if (Remaining > 0) {
+    addPrevMonthSaving();
+  }
+}, [Remaining]);
+
+
 
 
 
   return (
     <div>
       <Navbar />
+      
       {addSaving &&  <AddSaving addSaving={addSaving} setAddSaving={setAddSaving} />}
+      {addAmountTrigger &&  <AddAmountPg setaddAmountTrigger={setaddAmountTrigger} Remaining={Remaining}  activeGoalId={activeGoalId} setAmountToSave={setAmountToSave} amountToSave={amountToSave}  /> }
       <div  className='w-[80%]  bg-[#F9FAFB] absolute right-0 '>
       <SavingTop addSaving={addSaving} setAddSaving={setAddSaving} />
-      <SavingCard setRemaining={setRemaining} Remaining={Remaining} setTotalBudget={setTotalBudget}
+      <SavingCard totalSaved={totalSaved} setRemaining={setRemaining} Remaining={Remaining} setTotalBudget={setTotalBudget}
       TotalBudget={TotalBudget} TotalSpent={TotalSpent} setTotalSpent={setTotalSpent} />
-      <SavingContainer setRemaining={setRemaining} Remaining={Remaining} setTotalBudget={setTotalBudget}
+      <SavingContainer setTotalSaved={setTotalSaved} setaddAmountTrigger={setaddAmountTrigger} activeGoalId={activeGoalId} setActiveGoalId={setActiveGoalId}   addAmountTrigger={addAmountTrigger} setRemaining={setRemaining} Remaining={Remaining} setTotalBudget={setTotalBudget}
       TotalBudget={TotalBudget} TotalSpent={TotalSpent} setTotalSpent={setTotalSpent} />
       </div>
     </div>

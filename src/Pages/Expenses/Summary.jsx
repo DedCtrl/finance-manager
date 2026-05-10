@@ -78,16 +78,24 @@ if (Search === "Expense") {
 }, [Search, selectedMonth]);
   
     
-  
+ 
+const formatAmount = (amount) => {
+  const abs = Math.abs(amount)
+  if (abs >= 10000000) return `${(abs / 10000000).toFixed(2)}Cr`
+  if (abs >= 100000) return `${(abs / 100000).toFixed(2)}L`
+  return abs.toLocaleString('en-IN') // formats 10000 as 10,000
+}
 
-console.log(Search)
+
 
   return (
     <div className=' h-45 px-8 py-4'>
         <div className='bg-white py-4 shadow-md  rounded-xl border border-gray-200 w-full h-full flex flex-col justify-between  px-6'>
             <h1 className='text-[18px] font-semibold'>Summary</h1>
             <div>
-                <h1 className={`font-bold text-[24px] ${SummaryCss}`}>{TotalAmount  >= 0 ? '+' : '-'}{Math.abs(TotalAmount )}</h1>
+                <h1 className={`font-bold text-[24px] ${SummaryCss}`}>
+  {TotalAmount >= 0 ? '+' : '-'}${formatAmount(TotalAmount)}
+</h1>
                 <h3 className='text-[14px] text-[#6A7282]'>{transactionCount} transactions</h3>
             </div>
         </div>
