@@ -14,11 +14,9 @@ import Expenses from './Pages/Expenses';
 
 
 const App = () => {
-const [loading, setLoading] = useState(true)
-  const auth = getAuth()
-  const navigate = useNavigate()
 
-  const App = () => {
+
+ 
   const [loading, setLoading] = useState(true)
   const auth = getAuth()
   const navigate = useNavigate()
@@ -51,5 +49,5 @@ const [loading, setLoading] = useState(true)
     </div>
   )
 };
-}
+
 export default App
