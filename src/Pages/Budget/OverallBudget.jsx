@@ -136,10 +136,10 @@ const finalProgress = Number(progress.toFixed(1))
             <div className='w-full h-15 '>
               <div className='flex justify-between items-center'>
                 <h1 className='text-gray-500 text-sm'>Progress</h1>
-                <h1 className='text-gray-500 text-sm'>{finalProgress}%</h1>
+                <h1 className='text-gray-500 text-sm'>{finalProgress || 0}%</h1>
                 </div>
                 <div className='bg-[#CDCCD0] w-full h-3 mt-2 rounded-xl'>
-                  <div className='bg-black h-full   rounded-xl ' style={{width:`${finalProgress}%`}}></div>
+                  <div className='bg-black h-full   rounded-xl ' style={{width:`${finalProgress || 0}% `}}></div>
                 </div>
             </div>
         </div>

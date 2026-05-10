@@ -1,4 +1,6 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
 import Login from './components/Login'
 import SignIn from './components/SignIn'
 import { initializeApp } from "firebase/app";
@@ -12,6 +14,28 @@ import Expenses from './Pages/Expenses';
 
 
 const App = () => {
+const [loading, setLoading] = useState(true)
+  const auth = getAuth()
+  const navigate = useNavigate()
+
+  const App = () => {
+  const [loading, setLoading] = useState(true)
+  const auth = getAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate('/dashboard') // already logged in → skip login page
+      } else {
+        navigate('/login')     // not logged in → go to login
+      }
+      setLoading(false)
+    })
+    return () => unsubscribe()
+  }, [])
+
+  if (loading) return <div>Loading...</div> // prevent flash of login page
 
   return (
     <div>
