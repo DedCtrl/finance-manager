@@ -34,6 +34,7 @@ const SignIn = () => {
             password
         ).then(()=>{
            setUserCreated('User created successfully! Please login to continue.')
+           redirect('/Dashboard');
         }).catch((error)=>{
             if(error.code === 'auth/email-already-in-use'){
                 setError('Email already in use. Please login or use a different email.')
