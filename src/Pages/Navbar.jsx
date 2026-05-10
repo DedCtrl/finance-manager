@@ -1,8 +1,17 @@
 import React from "react";
 import { Routes, Route, Link, NavLink } from 'react-router-dom'
 import Dashboard from "../components/Dashboard";
+import { getAuth, signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
+const auth = getAuth();
+const navigate = useNavigate();
 
+const handleSignOut = () => {
+  signOut(auth).then(() => {
+    navigate('/') // redirect after sign out
+  })
+}
   const navItem = ({ isActive }) =>
   `flex gap-3 items-center p-1 rounded cursor-pointer ${
     isActive ? "text-blue-700 bg-blue-100" : "text-[#364153]"
@@ -51,7 +60,7 @@ const Navbar = () => {
 
       </div>
 </div>
-    <div className="px-4  py-4 bg-red-400 rounded-xl cursor-pointer border-gray-300  border hover:bg-red-500">
+    <div onClick={handleSignOut} className="px-4  py-4 bg-red-400 rounded-xl cursor-pointer border-gray-300  border hover:bg-red-500">
       <div className="text-white font-bold flex items-center gap-4 "> <svg className="w-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out w-4 h-4"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>Sign Out</div>
     </div>
 
