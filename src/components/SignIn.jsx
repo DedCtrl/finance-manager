@@ -9,6 +9,8 @@ const SignIn = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [userCreated, setUserCreated] = useState('');
 
   // const saveData = ()=>{
   //     const db = getDatabase(app);
@@ -31,7 +33,15 @@ const SignIn = () => {
             email,
             password
         ).then(()=>{
-            alert("User created successfully");
+           setUserCreated('User created successfully! Please login to continue.')
+        }).catch((error)=>{
+            if(error.code === 'auth/email-already-in-use'){
+                setError('Email already in use. Please login or use a different email.')
+            } else if (error.code === 'auth/invalid-email') {
+                setError('Invalid email format. Please enter a valid email address.')
+            } else if (error.code === 'auth/weak-password') {
+                setError('Weak password. Password should be at least 6 characters long.')
+            }
         })
     }
         
@@ -42,7 +52,7 @@ const SignIn = () => {
     // Handle login logic here
   };
   return (
-    <div className="h-screen w-screen flex items-center flex-col justify-center bg-[#F7FAFF]">
+    <div className="h-screen w-full flex items-center flex-col justify-center bg-[#F7FAFF]">
       <div className="text-4xl font-bold bg-linear-to-r py-1 from-blue-600 to-purple-600 bg-clip-text text-transparent">
         Finance Manager
       </div>
@@ -112,6 +122,10 @@ const SignIn = () => {
               placeholder="Enter your password"
               id="password"
             />
+          </div>
+          <div>
+            {error && <p className="text-red-500 bg-gray-100 p-0.5 rounded ">{error}</p>}
+            {userCreated && <p className="text-green-500 bg-gray-100 p-0.5 rounded my-0.5">{userCreated}</p>}
           </div>
           <button  className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800">
             Signup

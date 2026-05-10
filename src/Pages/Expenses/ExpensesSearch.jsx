@@ -1,73 +1,55 @@
 import React from "react";
 
-const ExpensesSearch = ({ setSearch, Search }) => {
+const ExpensesSearch = ({ setSearch, Search, setTypeFilter, setCategoryFilter, typeFilter, categoryFilter }) => {
+
   return (
-    <div className="w-full  h-35  px-8 py-3 flex justify-between items-center">
-      <div className="bg-white shadow-md  w-full h-full rounded-xl border border-gray-200 flex items-center gap-3 px-6 ">
-        <div className="w-1/3  ">
+    <div className="w-full h-35 px-8 py-3">
+      <div className="bg-white shadow-md justify-between w-full h-full rounded-xl border border-gray-200 flex items-center gap-3 px-6">
+        
+        {/* Search Input */}
+        <div className="w-1/3">
           <h3 className="font-semibold">Search</h3>
           <div className="bg-[#F3F3F5] py-2 px-10 rounded flex items-center gap-2 mt-1 relative">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-search absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.3-4.3"></path>
             </svg>
-            <input 
-            className="outline-none"
-            onChange={(e)=>{
-              setSearch(e.target.value)
-            }}
-            type="text" placeholder="Search transactions..." />
+            <input
+              className="outline-none bg-transparent"
+              value={Search}
+      onChange={(e) => setSearch(e.target.value)}
+              type="text"
+              placeholder="Search transactions..."
+            />
           </div>
         </div>
-        <div className="w-1/3  ">
+
+        {/* Type Filter */}
+        <div className="w-1/3">
           <h3 className="font-semibold">Type</h3>
-          <div className="bg-[#F3F3F5] py-2 justify-between rounded flex items-center gap-2 mt-1 relative">
+          <div className="bg-[#F3F3F5] py-2 justify-between rounded flex items-center gap-2 mt-1">
             <select
-            
-            value={Search}
-            onChange={(e) =>{
-      if(e.target.value === "All"){
-        setSearch("")
-      }else{
-        setSearch(e.target.value)
-      }
-    }}
-              name=""
-              id=""
-              className="flex outline-0 justify-between w-[94%] text-[14px] font-semibold bg-transparent px-3 text-[#232121]"
+            value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value === "All" ? "" : e.target.value)}
+              className="flex outline-0 w-[94%] text-[14px] font-semibold bg-transparent px-3 text-[#232121]"
             >
-              <option value="All" >All</option>
-              <option value="Income" >Income</option>
-              <option value="Expense" >Expense</option>
-            </select >
+              <option value="All">All</option>
+              <option value="Income">Income</option>
+              <option value="Expense">Expense</option>
+            </select>
           </div>
         </div>
-        <div className="w-1/3  ">
+
+        {/* Category Filter */}
+        <div className="w-1/3">
           <h3 className="font-semibold">Category</h3>
-          <div className="bg-[#F3F3F5] py-2 rounded flex items-center gap-2 mt-1 relative">
+          <div className="bg-[#F3F3F5] py-2 rounded flex items-center gap-2 mt-1">
             <select
-            onChange={(e) =>{
-      if(e.target.value === "all"){
-        setSearch("")
-      }else{
-        setSearch(e.target.value)
-      }
-    }}
-            id="category" name="category"  className="flex outline-0 justify-between w-[94%] text-[14px] font-semibold bg-transparent px-3 text-[#232121]">
-              <option value="all" selected>
-                All Categories
-              </option>
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value === "all" ? "" : e.target.value)}
+              className="flex outline-0 w-[94%] text-[14px] font-semibold bg-transparent px-3 text-[#232121]"
+            >
+              <option value="all">All Categories</option>
               <option value="food">Food & Dining</option>
               <option value="transport">Transportation</option>
               <option value="shopping">Shopping</option>
@@ -80,6 +62,20 @@ const ExpensesSearch = ({ setSearch, Search }) => {
             </select>
           </div>
         </div>
+
+        {/* Clear Button */}
+        <div>
+          <button
+            onClick={() => {
+              setSearch("");
+              setTypeFilter("");
+              setCategoryFilter("");
+            }}
+            className="bg-black text-white font-semibold mt-5.5 px-3 py-1 rounded">
+            Clear Filters
+          </button>
+        </div>
+
       </div>
     </div>
   );

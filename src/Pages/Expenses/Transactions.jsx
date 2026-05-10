@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, push, set, onValue, get, remove } from "firebase/database";
 import app from "../../FirebaseConfig";
 
-const Transactions = ({ Search , setSelectedMonth , selectedMonth }) => {
+const Transactions = ({ Search , setSelectedMonth , selectedMonth, typeFilter, categoryFilter }) => {
 const [amountCss, setAmountCss] = useState('text-green-500')
 const [logo, setLogo] = useState('💰')
 const [sign, setSign] = useState('-')
@@ -44,22 +44,22 @@ const handleDelete =(id)=>{
 
 
 const transactionFilter = transaction.filter((t) => {
-  const search = (Search || '').toLowerCase();
-
-  const matchesSearch =
-    t.description.toLowerCase().includes(search) ||
-    t.category.toLowerCase().includes(search) ||
-    t.type.toLowerCase().includes(search);
-
-  const transactionMonth = new Date(t.date).toISOString().slice(0, 7);
-
-  const matchesMonth = selectedMonth
-    ? transactionMonth === selectedMonth
+  const matchesSearch = Search
+    ? t.description.toLowerCase().includes(Search.toLowerCase()) ||
+      t.category.toLowerCase().includes(Search.toLowerCase())
     : true;
 
-  return matchesSearch && matchesMonth;
-});
+  const matchesType = typeFilter ? t.type === typeFilter : true;
 
+  const matchesCategory = categoryFilter
+    ? t.category.toLowerCase() === categoryFilter.toLowerCase()
+    : true;
+
+  const transactionMonth = t.date?.slice(0, 7);
+  const matchesMonth = selectedMonth ? transactionMonth === selectedMonth : true;
+
+  return matchesSearch && matchesType && matchesCategory && matchesMonth;
+});
 
 
 

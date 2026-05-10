@@ -7,7 +7,9 @@ import Transactions from './Expenses/Transactions'
 import AddExpense from './Expenses/AddExpense'
 import { useSearchParams } from 'react-router-dom'
 const Expenses = () => {
-  const [Search, setSearch] = useState('')
+ const [Search, setSearch] = useState('')
+const [typeFilter, setTypeFilter] = useState('')
+const [categoryFilter, setCategoryFilter] = useState('')
   const [isOpen, setIsOpen] = useState(false)
 
   const [selectedMonth, setSelectedMonth] = useState('')
@@ -29,9 +31,9 @@ const Expenses = () => {
     }
       <div className='w-[80%]  bg-[#F9FAFB] absolute right-0 '>
       <ExpensesTop setIsOpen={setIsOpen} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
-      <ExpensesSearch setSearch={setSearch} Search={Search} />
+      <ExpensesSearch setSearch={setSearch} Search={Search} setTypeFilter={setTypeFilter} setCategoryFilter={setCategoryFilter} typeFilter={typeFilter} categoryFilter={categoryFilter} />
       <Summary Search={Search} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
-      <Transactions Search={Search} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
+      <Transactions Search={Search} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} setTypeFilter={setTypeFilter} setCategoryFilter={setCategoryFilter} typeFilter={typeFilter} categoryFilter={categoryFilter} />
       </div>
     </div>
     
