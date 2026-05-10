@@ -50,6 +50,6 @@ const [loading, setLoading] = useState(true)
       </Routes>
     </div>
   )
+};
 }
-
 export default App
