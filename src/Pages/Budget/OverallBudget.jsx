@@ -88,13 +88,17 @@ const totalBudget = filteredBudgets.reduce((total , budget) =>{
 }, 0)
 
 const totalSpent = transactions.reduce((total, t) => {
-  if (
-    t.type === "Expense" &&
-    t.date?.slice(0, 7) === selectedMonth
-  ) {
-    return total + (parseFloat(t.amount) || 0);
-  }
-  return total;
+  if (t.type !== "Expense") return total;
+  if (t.date?.slice(0, 7) !== selectedMonth) return total;
+
+  // ✅ only count if transaction category matches a budget category
+  const hasBudget = filteredBudgets.some(
+    (b) => b.category.toLowerCase() === t.category.toLowerCase()
+  );
+
+  if (!hasBudget) return total;
+
+  return total + (parseFloat(t.amount) || 0);
 }, 0);
 
 const remaning = totalBudget - totalSpent
