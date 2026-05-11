@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, push, set, onValue, get, remove } from "firebase/database";
 import app from "../../FirebaseConfig";
 
-const BudgetContainer = ({selectedMonth}) => {
+const BudgetContainer = ({ setAddBudget, addBudget, selectedMonth }) => {
 
   const [Budgets, setBudgets] = useState([])
   const [transactions, setTransactions] = useState([])
@@ -108,6 +108,35 @@ if (selectedMonth !== "") {
         <div className=' min-h-80 w-full  py-5 '>
             <h1 className='font-semibold text-xl'>Budgets</h1>
             <div className=' h-70 w-full py-5 '>
+
+          {filteredBudgets.length === 0 && (
+            <div className='bg-white rounded h-60 shadow-md w-full border flex flex-col justify-center items-center  border-gray-200'>
+                <div  className='font-semibold text-lg py-2'>No Budgets Found.</div>
+                <div onClick={
+        () => {
+          setAddBudget(true)
+        }
+      } 
+      className="text-white cursor-pointer bg-black flex justify-center items-center px-3 py-2 rounded font-semibold ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-plus w-4 h-4 mr-2"
+        >
+          <path d="M5 12h14"></path>
+          <path d="M12 5v14"></path>
+        </svg>{" "}
+        Add Budget
+      </div>
+            </div>
+          )}
 
 
             {filteredBudgets.map((budget)=>{

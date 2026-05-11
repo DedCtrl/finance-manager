@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, push, set, onValue, get, remove, update } from "firebase/database";
 import app from "../../FirebaseConfig";
 import { log } from 'firebase/firestore/pipelines';
-const SavingContainer = ({setaddAmountTrigger , setTotalSaved, activeGoalId, setActiveGoalId, addAmountTrigger, setRemaining, Remaining, setTotalBudget, TotalBudget, TotalSpent, setTotalSpent}) => {
+const SavingContainer = ({setAddSaving, setaddAmountTrigger , setTotalSaved, activeGoalId, setActiveGoalId, addAmountTrigger, setRemaining, Remaining, setTotalBudget, TotalBudget, TotalSpent, setTotalSpent}) => {
 
 const [goals, setGoals] = useState([])
 const [budgets, setBudgets] = useState([])
@@ -102,11 +102,40 @@ useEffect(() => {
 
   return (
     <div className='px-8 mt-8 w-full h-auto'>
-        <div className=' min-h-80 w-full  py-5 '>
-          <div className='flex items-center justify-between'>
+        <div className=' min-h-80 w-full '>
+          <div className='flex items-center pb-3 justify-between'>
             <h1 className='font-semibold text-xl'>Goals</h1>
           
                   </div>
+{goals.length === 0 && (
+            <div className='bg-white  rounded h-60 shadow-md w-full border flex flex-col justify-center items-center  border-gray-200'>
+                <div  className='font-semibold text-lg py-2'>No Goals Found.</div>
+                <div onClick={
+        () => {
+          setAddSaving(true)
+        }
+      } 
+      className="text-white cursor-pointer bg-black flex justify-center items-center px-3 py-2 rounded font-semibold ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-plus w-4 h-4 mr-2"
+        >
+          <path d="M5 12h14"></path>
+          <path d="M12 5v14"></path>
+        </svg>{" "}
+        Add Goal
+      </div>
+            </div>
+          )}
+                  
             {goals.map((goal)=>{
 
               const amount = goal.goalAmount

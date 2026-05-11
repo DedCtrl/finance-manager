@@ -8,7 +8,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import { PieChart, Pie, Cell } from "recharts";
 const DashboardGraphs = () => {
 const [chartData, setChartData] = useState([]);
-
+const [incomeData, setincomeData] = useState([])
   const db = getDatabase(app)
     const auth = getAuth()
 
@@ -31,6 +31,20 @@ const categoryData = {};
   }
 });
 
+const incomeCategoryData = {};
+transactions.forEach((t) => {
+  if (t.type === "Income") {
+    incomeCategoryData[t.category] = 
+      (incomeCategoryData[t.category] || 0) + Number(t.amount);
+  }
+});
+
+const incomeData = Object.entries(incomeCategoryData).map(([key, value]) => ({
+  name: key,
+  value
+}));
+setincomeData(incomeData);
+
 const chartData = Object.entries(categoryData).map(([key, value]) => ({
   name: key,
   value
@@ -51,9 +65,44 @@ const chartData = Object.entries(categoryData).map(([key, value]) => ({
   
   return (
     <div className='w-full h-80 flex items-center justify-center gap-10 px-8 py-3'>
-      <div className='bg-white border border-gray-200 shadow-md rounded  w-full h-full'></div>
-      <div className='bg-white border border-gray-200 shadow-md rounded  w-full h-full flex items-center justify-center'>
-        <PieChart width={450} height={450}>
+      <div className='bg-white w-1/2 border flex justify-center items-center border-gray-200 shadow-md rounded   h-full'>
+      
+      {incomeData.length > 0 &&(
+<PieChart  width={450} height={450}>
+  <Pie
+    data={incomeData}
+    dataKey="value"
+    outerRadius={100}
+    label={({ name, percent }) =>
+    `${name} ${(percent * 100).toFixed(0)}%`
+  } // 👈 shows category name
+  >
+    {incomeData.map((entry, index) => (
+      <Cell key={index} fill={["#22c55e", "#3b82f6", "#f59e0b"][index % 3]} />
+    ))}
+  </Pie>
+</PieChart>
+)}
+
+{incomeData.length === 0 && (
+  <div className='flex justify-center items-center w-full h-full '>
+                <div  className='font-semibold text-lg py-2'>No Income Data Found.</div>
+               
+
+            </div>
+  )}
+      
+      </div>
+
+
+
+
+
+
+      <div className='bg-white border border-gray-200 shadow-md rounded w-1/2 h-full flex items-center justify-center'>
+
+{chartData.length > 0 &&(
+<PieChart width={450} height={450}>
   <Pie
     data={chartData}
     dataKey="value"
@@ -67,6 +116,17 @@ const chartData = Object.entries(categoryData).map(([key, value]) => ({
     ))}
   </Pie>
 </PieChart>
+)}
+
+{chartData.length === 0 && (
+  <div className='flex justify-center items-center w-full h-full '>
+                <div  className='font-semibold text-lg py-2'>No Expense Data Found.</div>
+               
+
+            </div>
+  )}
+         
+        
       </div>
     </div> )
 

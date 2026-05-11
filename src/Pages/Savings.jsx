@@ -158,7 +158,7 @@ useEffect(() => {
       <SavingTop addSaving={addSaving} setAddSaving={setAddSaving} />
       <SavingCard totalSaved={totalSaved} setRemaining={setRemaining} Remaining={Remaining} setTotalBudget={setTotalBudget}
       TotalBudget={TotalBudget} TotalSpent={TotalSpent} setTotalSpent={setTotalSpent} />
-      <SavingContainer setTotalSaved={setTotalSaved} setaddAmountTrigger={setaddAmountTrigger} activeGoalId={activeGoalId} setActiveGoalId={setActiveGoalId}   addAmountTrigger={addAmountTrigger} setRemaining={setRemaining} Remaining={Remaining} setTotalBudget={setTotalBudget}
+      <SavingContainer setAddSaving={setAddSaving} setTotalSaved={setTotalSaved} setaddAmountTrigger={setaddAmountTrigger} activeGoalId={activeGoalId} setActiveGoalId={setActiveGoalId}   addAmountTrigger={addAmountTrigger} setRemaining={setRemaining} Remaining={Remaining} setTotalBudget={setTotalBudget}
       TotalBudget={TotalBudget} TotalSpent={TotalSpent} setTotalSpent={setTotalSpent} />
       </div>
     </div>

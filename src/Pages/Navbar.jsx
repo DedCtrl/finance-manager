@@ -17,7 +17,7 @@ const handleSignOut = () => {
     isActive ? "text-blue-700 bg-blue-100" : "text-[#364153]"
   }`;
   return (
-    <div className="w-62.5 h-screen px-4 py-4 fixed bg-white border border-gray-300 shadow-md flex flex-col justify-between" >
+    <div className="w-[20%] h-screen px-4 py-4 fixed bg-white border border-gray-300 shadow-md flex flex-col justify-between" >
       <div>
       <div className="text-2xl h-[10%] font-bold bg-linear-to-r py-1 from-blue-600 to-purple-600 bg-clip-text text-transparent">
         Finance Manager

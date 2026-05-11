@@ -33,7 +33,7 @@ const [categoryFilter, setCategoryFilter] = useState('')
       <ExpensesTop setIsOpen={setIsOpen} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
       <ExpensesSearch setSearch={setSearch} Search={Search} setTypeFilter={setTypeFilter} setCategoryFilter={setCategoryFilter} typeFilter={typeFilter} categoryFilter={categoryFilter} />
       <Summary Search={Search} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
-      <Transactions Search={Search} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} setTypeFilter={setTypeFilter} setCategoryFilter={setCategoryFilter} typeFilter={typeFilter} categoryFilter={categoryFilter} />
+      <Transactions setIsOpen={setIsOpen} Search={Search} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} setTypeFilter={setTypeFilter} setCategoryFilter={setCategoryFilter} typeFilter={typeFilter} categoryFilter={categoryFilter} />
       </div>
     </div>
     

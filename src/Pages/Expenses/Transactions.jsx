@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, push, set, onValue, get, remove } from "firebase/database";
 import app from "../../FirebaseConfig";
 
-const Transactions = ({ Search , setSelectedMonth , selectedMonth, typeFilter, categoryFilter }) => {
+const Transactions = ({ setIsOpen, Search , setSelectedMonth , selectedMonth, typeFilter, categoryFilter }) => {
 const [amountCss, setAmountCss] = useState('text-green-500')
 const [logo, setLogo] = useState('💰')
 const [sign, setSign] = useState('-')
@@ -68,6 +68,37 @@ const transactionFilter = transaction.filter((t) => {
         <h1 className='text-[18px] font-semibold'>Transactions</h1>
 
         <div className="mt-5  w-full min-h-90 rounded-md  py-5 ">
+
+{transactionFilter.length === 0 &&(
+  <div className='flex items-center justify-center flex-col' >
+<div className='font-semibold text-lg py-3'>No transactions found.</div>
+<div onClick={
+        () => {
+          setIsOpen(true)
+        }
+      } 
+      className="text-white cursor-pointer bg-black flex justify-center items-center px-3 py-2 rounded font-semibold ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-plus w-4 h-4 mr-2"
+        >
+          <path d="M5 12h14"></path>
+          <path d="M12 5v14"></path>
+        </svg>{" "}
+        Add Transaction
+      </div>
+
+  </div>
+)}
+
           {transactionFilter.map((transaction)=>{
   if(transaction.type === "Expense"){
     return(

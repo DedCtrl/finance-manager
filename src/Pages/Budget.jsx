@@ -25,7 +25,7 @@ useEffect(() => {
       <div className='w-[80%]  bg-[#F9FAFB] absolute right-0 '> 
       <BudgetTop setAddBudget={setAddBudget} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
       < OverallBudget selectedMonth={selectedMonth} />
-      < BudgetContainer selectedMonth={selectedMonth} />
+      < BudgetContainer setAddBudget={setAddBudget} addBudget={addBudget} selectedMonth={selectedMonth} />
       </div>
     </div>
   )
