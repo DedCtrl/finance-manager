@@ -81,6 +81,7 @@ if (Search === "Expense") {
  
 const formatAmount = (amount) => {
   const abs = Math.abs(amount)
+  if(abs >=  1000000000) return `${(abs / 1000000000).toFixed(2)}B`
   if (abs >= 10000000) return `${(abs / 10000000).toFixed(2)}Cr`
   if (abs >= 100000) return `${(abs / 100000).toFixed(2)}L`
   return abs.toLocaleString('en-IN') // formats 10000 as 10,000

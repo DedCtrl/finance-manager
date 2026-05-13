@@ -11,21 +11,18 @@ const [selectedMonth, setSelectedMonth] = useState('')
 
 useEffect(() => {
   const today = new Date();
-  const month = today.toISOString().slice(0, 7); // "2026-04"
+  const month = today.toISOString().slice(0, 7);
   setSelectedMonth(month);
 }, []);
-   
 
-
-  
   return (
     <div>
       <Navbar />
       {addBudget && <AddBudget setAddBudget={setAddBudget} />}
-      <div className='w-[80%]  bg-[#F9FAFB] absolute right-0 '> 
+      <div className='md:ml-[20%] w-full md:w-[80%] bg-[#F9FAFB] min-h-screen pb-20 md:pb-0'>
       <BudgetTop setAddBudget={setAddBudget} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
-      < OverallBudget selectedMonth={selectedMonth} />
-      < BudgetContainer setAddBudget={setAddBudget} addBudget={addBudget} selectedMonth={selectedMonth} />
+      <OverallBudget selectedMonth={selectedMonth} />
+      <BudgetContainer setAddBudget={setAddBudget} addBudget={addBudget} selectedMonth={selectedMonth} />
       </div>
     </div>
   )

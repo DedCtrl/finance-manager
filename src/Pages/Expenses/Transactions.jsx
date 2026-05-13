@@ -61,6 +61,13 @@ const transactionFilter = transaction.filter((t) => {
   return matchesSearch && matchesType && matchesCategory && matchesMonth;
 });
 
+const formatAmount = (amount) => {
+  const abs = Math.abs(amount)
+  if(abs >=  1000000000) return `${(abs / 1000000000).toFixed(2)}B`
+  if (abs >= 10000000) return `${(abs / 10000000).toFixed(2)}Cr`
+  if (abs >= 100000) return `${(abs / 100000).toFixed(2)}L`
+  return abs.toLocaleString('en-IN') // formats 10000 as 10,000
+}
 
 
   return (
@@ -115,7 +122,7 @@ const transactionFilter = transaction.filter((t) => {
 
     <div className="flex items-center gap-2 md:gap-4 shrink-0 ml-2">
       <p className="text-red-500 font-semibold text-base md:text-lg">
-        -{transaction.amount}
+        -${formatAmount(transaction.amount)}
       </p>
       <button onClick={() => handleDelete(transaction.id)} className="text-red-500 hover:text-red-700">
         <svg className='w-5 h-5' xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 30 30">
@@ -145,7 +152,7 @@ const transactionFilter = transaction.filter((t) => {
 
     <div className="flex items-center gap-2 md:gap-4 shrink-0 ml-2">
       <p className="text-green-500 font-semibold text-base md:text-lg">
-        +${transaction.amount}
+       +${formatAmount(transaction.amount)}
       </p>
       <button onClick={() => handleDelete(transaction.id)} className="text-red-500 hover:text-red-700">
         <svg className='w-5 h-5' xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 30 30">
