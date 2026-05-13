@@ -89,8 +89,8 @@ const formatAmount = (amount) => {
 
 
   return (
-    <div className=' h-45 px-8 py-4'>
-        <div className='bg-white py-4 shadow-md  rounded-xl border border-gray-200 w-full h-full flex flex-col justify-between  px-6'>
+    <div className='px-4 md:px-8 py-4'>
+        <div className='bg-white py-4 shadow-md rounded-xl border border-gray-200 w-full h-full flex flex-col justify-between px-6'>
             <h1 className='text-[18px] font-semibold'>Summary</h1>
             <div>
                 <h1 className={`font-bold text-[24px] ${SummaryCss}`}>

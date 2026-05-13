@@ -40,7 +40,7 @@ useEffect(() => {
     if (user) {
       navigate('/dashboard')
     } else {
-      navigate('/login')
+      navigate('/')
     }
     setLoading(false)
   })

@@ -29,7 +29,7 @@ const [categoryFilter, setCategoryFilter] = useState('')
     {
         isOpen && <AddExpense setIsOpen={setIsOpen} />
     }
-      <div className='w-[80%]  bg-[#F9FAFB] absolute right-0 '>
+      <div className='md:ml-[20%] w-full md:w-[80%] bg-[#F9FAFB] min-h-screen pb-20 md:pb-0'>
       <ExpensesTop setIsOpen={setIsOpen} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
       <ExpensesSearch setSearch={setSearch} Search={Search} setTypeFilter={setTypeFilter} setCategoryFilter={setCategoryFilter} typeFilter={typeFilter} categoryFilter={categoryFilter} />
       <Summary Search={Search} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />

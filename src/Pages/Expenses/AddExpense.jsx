@@ -43,17 +43,17 @@ setDate("");
 
 
   return (
-    <div className=' h-screen w-full shadow-lg z-100 backdrop-blur-[1px] fixed  backdrop-brightness-50 flex items-center justify-center'>
+    <div className='fixed inset-0 shadow-lg z-100 bg-black/50 flex items-center justify-center px-4 overflow-y-auto'>
       <form action="" onSubmit={(e)=>{
         e.preventDefault();
       }}>
-        <div className='h-[90%] w-120 bg-white  rounded-xl px-5 py-5'>
+        <div className='xl:w-150 md:w-100 sm:w-100  bg-white rounded-xl px-5 py-5'>
           <div className='flex justify-between items-center mb-5'>
             <h1 className='text-lg font-semibold'>Add New Transaction</h1>
             <button onClick={()=>{
               setIsOpen(false)
             }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x" data-fg-mmg10="0.26:0.3828:/src/app/components/ui/dialog.tsx:67:11:2415:9:e:XIcon::::::BUZD" data-fgid-mmg10=":rl3:"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
             </button>
             </div>
 
