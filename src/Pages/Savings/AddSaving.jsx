@@ -26,71 +26,45 @@ const AddSaving = ({setAddSaving, AddSaving}) => {
         })
     }
 
-
   return (
-    <div className=' h-screen w-full shadow-lg z-100 backdrop-blur-[1px] fixed  backdrop-brightness-50 flex items-center justify-center'>
-       
-            <div class="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 relative">
-    
+    <div className='fixed inset-0 shadow-lg z-100 bg-black/50 flex items-center justify-center px-4 overflow-y-auto'>
+      <div className="bg-white w-full max-w-md md:max-w-lg rounded-2xl shadow-lg p-6 relative">
 
-    <button 
-    onClick={()=>{
-        setAddSaving(false)
-    }}
-    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
-      ✕
-    </button>
+        <button 
+          onClick={() => { setAddSaving(false) }}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+          ✕
+        </button>
 
-    <h2 className="text-xl font-semibold text-gray-900">Create Savings Goal</h2>
-    <p className="text-sm text-gray-500 mt-1">
-     Set a new goal to save towards
-    </p>
+        <h2 className="text-xl font-semibold text-gray-900">Create Savings Goal</h2>
+        <p className="text-sm text-gray-500 mt-1">Set a new goal to save towards</p>
 
+        <div className="mt-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Goal Name</label>
+            <input
+              onChange={(e) => { setGoalName(e.target.value) }}
+              type="text"
+              placeholder="Set e.g Vacations, Emergency Funds"
+              className="w-full bg-gray-100 rounded-lg px-4 py-3 text-gray-600 focus:outline-none"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Goal Amount</label>
+            <input
+              onChange={(e) => { setGoalAmount(e.target.value) }}
+              type="number"
+              placeholder="0.00"
+              className="w-full bg-gray-100 rounded-lg px-4 py-3 text-gray-600 focus:outline-none"
+            />
+          </div>
 
-    <div className="mt-6 space-y-4">
-
- 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Goal Name
-        </label>
-        <input
-        onChange={(e)=>{
-            setGoalName(e.target.value)
-        }}
-          type="text"
-          placeholder="Set e.g Vacations, Emergency Funds"
-          className="w-full bg-gray-100 rounded-lg px-4 py-3 text-gray-600 focus:outline-none"
-        />
+          <button onClick={addGoal} className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-900 transition">
+            Add Goal
+          </button>
+        </div>
       </div>
-      
- 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Goal Amount
-        </label>
-        <input
-         onChange={(e)=>{
-            setGoalAmount(e.target.value)
-        }}
-          type="number"
-          placeholder="0.00"
-          className="w-full bg-gray-100 rounded-lg px-4 py-3 text-gray-600 focus:outline-none"
-        />
-      </div>
-      
-
-   
-
-
-
-      <button onClick={addGoal}  className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-900 transition">
-        Add Goal
-      </button>
-
-    </div>
-  </div>
-       
     </div>
   )
 }

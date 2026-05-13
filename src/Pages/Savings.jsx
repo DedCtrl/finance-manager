@@ -84,12 +84,7 @@ useEffect(() => {
         ...value
       }));
       setTransactions(transactions);
-
-      
-      
     });
-
-
 
     return () => unsubscribeDB();
   });
@@ -119,7 +114,7 @@ useEffect(() => {
     return total;
   }, 0);
 
-  const remaining = totalBudget - totalSpent - totalSaved; // subtract totalSaved from remaining budget
+  const remaining = totalBudget - totalSpent - totalSaved;
 
   setRemaining(remaining);
   setTotalBudget(totalBudget);
@@ -145,16 +140,13 @@ useEffect(() => {
 }, [Remaining]);
 
 
-
-
-
   return (
     <div>
       <Navbar />
       
       {addSaving &&  <AddSaving addSaving={addSaving} setAddSaving={setAddSaving} />}
       {addAmountTrigger &&  <AddAmountPg setaddAmountTrigger={setaddAmountTrigger} Remaining={Remaining}  activeGoalId={activeGoalId} setAmountToSave={setAmountToSave} amountToSave={amountToSave}  /> }
-      <div  className='w-[80%]  bg-[#F9FAFB] absolute right-0 '>
+      <div className='md:ml-[20%] w-full md:w-[80%] bg-[#F9FAFB] min-h-screen pb-20 md:pb-0'>
       <SavingTop addSaving={addSaving} setAddSaving={setAddSaving} />
       <SavingCard totalSaved={totalSaved} setRemaining={setRemaining} Remaining={Remaining} setTotalBudget={setTotalBudget}
       TotalBudget={TotalBudget} TotalSpent={TotalSpent} setTotalSpent={setTotalSpent} />

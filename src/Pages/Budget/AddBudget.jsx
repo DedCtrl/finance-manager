@@ -32,7 +32,7 @@ const AddBudget = ({ setAddBudget }) => {
 
 
   return (
-    <div className='fixed inset-0 shadow-lg z-[100] bg-black/50 flex items-center justify-center px-4 overflow-y-auto'>
+    <div className='fixed inset-0 shadow-lg z-100 bg-black/50 flex items-center justify-center px-4 overflow-y-auto'>
       <div className="bg-white w-full max-w-md md:max-w-lg rounded-2xl shadow-lg p-6 relative">
 
         <button

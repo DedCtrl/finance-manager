@@ -28,8 +28,8 @@ const AddAmountPg = ({ setaddAmountTrigger,Remaining, setAmountToSave, amountToS
   }
 
   return (
-    <div className='h-screen w-full shadow-lg z-100 backdrop-blur-[1px] fixed backdrop-brightness-50 flex items-center justify-center'>
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 relative">
+    <div className='fixed inset-0 shadow-lg z-100 bg-black/50 flex items-center justify-center px-4 overflow-y-auto'>
+      <div className="bg-white w-full max-w-md md:max-w-lg rounded-2xl shadow-lg p-6 relative">
 
         <button
           onClick={() => setaddAmountTrigger(false)}
@@ -49,21 +49,19 @@ const AddAmountPg = ({ setaddAmountTrigger,Remaining, setAmountToSave, amountToS
               type="number"
               placeholder="0.00"
               className="w-full bg-gray-100 rounded-lg px-4 py-3 text-gray-600 focus:outline-none"
-              
-              onChange={
-                (e)=>{
-                  if(e.target.value < 0){
-                    setAmountToSave(e.target.value)
+              onChange={(e) => {
+                if(e.target.value < 0){
+                  setAmountToSave(e.target.value)
                 }
               }}
             />
           </div>
 
           <button
-            onClick={()=>{
+            onClick={() => {
               if(amountToSave > 0 && amountToSave <= Remaining){
                 addAmount()
-              }else{
+              } else {
                 alert(`Please enter an amount between 0 and ${Remaining}`)
               }
             }}
