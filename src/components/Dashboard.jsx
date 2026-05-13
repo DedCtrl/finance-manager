@@ -8,10 +8,10 @@ import DashboardGraphs from '../Pages/Dashboard/DashboardGraphs';
 const Dashboard = () => {
 
   return (
-    <div className='flex '>
+    <div className='flex min-h-screen'>
       <Navbar />
 
-      <div className='w-[80%]  bg-[#F9FAFB] absolute right-0 overflow-y-hidden '>
+      <div className='md:ml-[20%] w-full md:w-[80%] min-w-0 bg-[#F9FAFB] min-h-screen overflow-y-auto pb-20 md:pb-0'>
         <DashboardTop />
         <DashboardCards />
         <DashboardGraphs />

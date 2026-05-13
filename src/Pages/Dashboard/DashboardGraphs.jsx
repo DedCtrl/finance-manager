@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { getAuth } from 'firebase/auth';
 import { getDatabase, ref, push, set, onValue, get } from "firebase/database";
 import { initializeApp } from "firebase/app";
@@ -64,18 +64,18 @@ const chartData = Object.entries(categoryData).map(([key, value]) => ({
 
   
   return (
-    <div className='w-full h-80 flex items-center justify-center gap-10 px-8 py-3'>
-      <div className='bg-white w-1/2 border flex justify-center items-center border-gray-200 shadow-md rounded   h-full'>
+    <div className='w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10 px-4 md:px-8 py-3'>
+      <div className='bg-white w-full md:w-1/2 border flex justify-center items-center border-gray-200 shadow-md rounded h-64 md:h-80'>
       
       {incomeData.length > 0 &&(
-<PieChart  width={450} height={450}>
+<PieChart  width={300} height={250}>
   <Pie
     data={incomeData}
     dataKey="value"
-    outerRadius={100}
+    outerRadius={90}
     label={({ name, percent }) =>
     `${name} ${(percent * 100).toFixed(0)}%`
-  } // 👈 shows category name
+  }
   >
     {incomeData.map((entry, index) => (
       <Cell key={index} fill={["#22c55e", "#3b82f6", "#f59e0b"][index % 3]} />
@@ -95,21 +95,17 @@ const chartData = Object.entries(categoryData).map(([key, value]) => ({
       </div>
 
 
-
-
-
-
-      <div className='bg-white border border-gray-200 shadow-md rounded w-1/2 h-full flex items-center justify-center'>
+      <div className='bg-white border border-gray-200 shadow-md rounded w-full md:w-1/2 h-64 md:h-80 flex items-center justify-center'>
 
 {chartData.length > 0 &&(
-<PieChart width={450} height={450}>
+<PieChart width={300} height={250}>
   <Pie
     data={chartData}
     dataKey="value"
-    outerRadius={100}
+    outerRadius={90}
     label={({ name, percent }) =>
     `${name} ${(percent * 100).toFixed(0)}%`
-  } // 👈 shows category name
+  }
   >
     {chartData.map((entry, index) => (
       <Cell key={index} fill={["#22c55e", "#3b82f6", "#f59e0b"][index % 3]} />
