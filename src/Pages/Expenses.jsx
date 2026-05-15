@@ -5,12 +5,14 @@ import ExpensesSearch from './Expenses/ExpensesSearch'
 import Summary from './Expenses/Summary'
 import Transactions from './Expenses/Transactions'
 import AddExpense from './Expenses/AddExpense'
+import TransactionStatement from './Expenses/TransactionStatement'
 import { useSearchParams } from 'react-router-dom'
 const Expenses = () => {
  const [Search, setSearch] = useState('')
 const [typeFilter, setTypeFilter] = useState('')
 const [categoryFilter, setCategoryFilter] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+  const [StatementOpen, setStatementOpen] = useState(false)
 
   const [selectedMonth, setSelectedMonth] = useState('')
   
@@ -26,11 +28,14 @@ const [categoryFilter, setCategoryFilter] = useState('')
   return (
     <div className='flex'>
       <Navbar />
-    {
-        isOpen && <AddExpense setIsOpen={setIsOpen} />
-    }
+          {
+              isOpen && <AddExpense setIsOpen={setIsOpen} />
+          }
+          {
+            StatementOpen && <TransactionStatement setStatementOpen={setStatementOpen} />
+          }
       <div className='md:ml-[20%] w-full md:w-[80%] bg-[#F9FAFB] min-h-screen pb-20 md:pb-0'>
-      <ExpensesTop setIsOpen={setIsOpen} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
+      <ExpensesTop setStatementOpen={setStatementOpen} StatementOpen={StatementOpen} isOpen={isOpen} setIsOpen={setIsOpen} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
       <ExpensesSearch setSearch={setSearch} Search={Search} setTypeFilter={setTypeFilter} setCategoryFilter={setCategoryFilter} typeFilter={typeFilter} categoryFilter={categoryFilter} />
       <Summary Search={Search} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} />
       <Transactions setIsOpen={setIsOpen} Search={Search} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} setTypeFilter={setTypeFilter} setCategoryFilter={setCategoryFilter} typeFilter={typeFilter} categoryFilter={categoryFilter} />

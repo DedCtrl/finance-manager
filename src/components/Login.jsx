@@ -22,7 +22,7 @@ const Login = () => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form Submitted");
+        
         // Handle login logic here
     }
 

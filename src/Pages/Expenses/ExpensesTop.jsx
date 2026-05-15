@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import AddExpense from "./AddExpense";
 
-const ExpensesTop = ( { setIsOpen,setSelectedMonth,selectedMonth } ) => {
+const ExpensesTop = ( { isOpen, setIsOpen, setSelectedMonth, selectedMonth, StatementOpen, setStatementOpen } ) => {
+
+  const [DropDown, setDropDown] = useState(false)
+
   return (
     <div className="w-full px-4 md:px-8 py-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
       <div>
@@ -15,8 +18,9 @@ const ExpensesTop = ( { setIsOpen,setSelectedMonth,selectedMonth } ) => {
           type="month" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}/>
       </div>
 
-      <div onClick={() => { setIsOpen(true) }} 
-        className="text-white cursor-pointer bg-black flex justify-center items-center px-3 py-2 rounded font-semibold text-sm md:text-base w-full sm:w-auto">
+      {/* <div onClick={() => { setIsOpen(true) }} >
+        
+          <div className="text-white cursor-pointer bg-black flex justify-center items-center px-3 py-2 rounded font-semibold text-sm md:text-base w-full sm:w-auto">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -33,7 +37,37 @@ const ExpensesTop = ( { setIsOpen,setSelectedMonth,selectedMonth } ) => {
           <path d="M12 5v14"></path>
         </svg>{" "}
         Add Transaction
-      </div>
+        </div>
+         { isOpen === true && (
+  <div>
+    <div>Add Manually </div> 
+    <div>Import from CSV</div> 
+  </div>
+ ) }
+      </div> */}
+
+<div class="relative inline-block text-left">
+  
+
+  <button 
+    onClick={() => { setDropDown(!DropDown) }}
+    class="bg-black text-white px-5 py-2 rounded-lg font-medium hover:opacity-90 transition"
+  >
+   + Add Transaction 
+  </button>
+
+  {DropDown == true && (
+    <div class="absolute right-0 mt-2 w-52 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50">
+      <button onClick={() => { {setIsOpen(true) , setDropDown(false)} }} class="w-full text-left px-4 py-3 hover:bg-gray-100 transition">
+        Add Manually
+      </button>
+      {/* <button onClick={()=>{ setStatementOpen(true) , setDropDown(false) }} class="w-full text-left px-4 py-3 hover:bg-gray-100 transition">
+        Transaction Statement
+      </button> */}
+    </div>
+  )}
+</div>
+     
     </div>
   );
 };
