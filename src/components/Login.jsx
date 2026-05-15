@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import app from '../FirebaseConfig';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword,   signInWithRedirect,  signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -11,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   const login = async (e) => {
     e.preventDefault();
@@ -31,16 +32,30 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    setError("");
-    try {
+ const handleGoogleSignIn = async () => {
+  setError("");
+  try {
+    if (isMobile) {
+      await signInWithRedirect(auth, provider);
+      // page redirects to Google, then comes back
+    } else {
       await signInWithPopup(auth, provider);
       navigate('/Dashboard');
-    } catch (error) {
-      setError("Google sign-in failed. Please try again.");
     }
-  };
+  } catch (error) {
+    setError("Google sign-in failed. Please try again.");
+  }
+};
 
+useEffect(() => {
+  getRedirectResult(auth).then((result) => {
+    if (result?.user) {
+      navigate('/Dashboard');
+    }
+  }).catch((error) => {
+    setError("Google sign-in failed. Please try again.");
+  });
+}, []);
   return (
     <div className='min-h-screen w-screen flex items-center flex-col justify-center bg-[#F7FAFF] px-4 py-8'>
       <div className='text-3xl md:text-4xl font-bold bg-linear-to-r py-1 from-blue-600 to-purple-600 bg-clip-text text-transparent'>

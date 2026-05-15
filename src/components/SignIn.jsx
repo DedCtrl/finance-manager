@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile,signInWithRedirect, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import app from "../FirebaseConfig";
 
 const SignIn = () => {
@@ -13,16 +13,31 @@ const SignIn = () => {
   const auth = getAuth(app);
   const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
-
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      console.log("Logged in as:", result.user.displayName);
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+ const handleGoogleSignIn = async () => {
+  setError("");
+  try {
+    if (isMobile) {
+      await signInWithRedirect(auth, provider);
+      // page redirects to Google, then comes back
+    } else {
+      await signInWithPopup(auth, provider);
       navigate('/Dashboard');
-    } catch (error) {
-      setError("Google sign-in failed. Please try again.");
     }
-  };
+  } catch (error) {
+    setError("Google sign-in failed. Please try again.");
+  }
+};
+
+useEffect(() => {
+  getRedirectResult(auth).then((result) => {
+    if (result?.user) {
+      navigate('/Dashboard');
+    }
+  }).catch((error) => {
+    setError("Google sign-in failed. Please try again.");
+  });
+}, []);
 
   const signIn = async () => {
     setError("");
