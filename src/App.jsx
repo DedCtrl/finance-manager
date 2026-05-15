@@ -8,7 +8,7 @@ import Savings from './Pages/Savings';
 import Budget from './Pages/Budget';
 import Setting from './Pages/Setting';
 import Expenses from './Pages/Expenses';
-
+import ForgotPassword from './components/ForgotPassword';
 const App = () => {
   const [loading, setLoading] = useState(true)
   const auth = getAuth()
@@ -34,18 +34,16 @@ const App = () => {
     if (!navigator.onLine) return; // stop here if no internet
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      // 👇 Use React Router's location instead of window.location
-      // This ignores the Vite base path and just looks at the actual route!
       const currentPath = location.pathname;
 
       if (user) {
-        // If logged in and on Login/Signup, push to Dashboard
-        if (currentPath === '/' || currentPath === '/signup') {
+        // If logged in and on an auth page, push to Dashboard
+        if (currentPath === '/' || currentPath === '/signup' || currentPath === '/forgot-password') {
           navigate('/Dashboard'); 
         }
       } else {
         // If logged out and trying to peek at a private page, kick back to Login
-        if (currentPath !== '/' && currentPath !== '/signup') {
+        if (currentPath !== '/' && currentPath !== '/signup' && currentPath !== '/forgot-password') {
           navigate('/');
         }
       }
@@ -83,6 +81,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/signup' element={<SignIn />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/Dashboard' element={<Dashboard />} />
         <Route path='/Savings' element={<Savings/>} />
         <Route path='/Budget' element={<Budget />} />

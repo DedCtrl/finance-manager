@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import app from '../FirebaseConfig';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-
+import ForgotPassword from './ForgotPassword';
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -85,6 +85,12 @@ const Login = () => {
               id="password"
             />
           </div>
+
+          <div className="flex justify-end">
+              <Link to="/forgot-password" className="text-xs text-blue-600 hover:underline">
+                Forgot Password?
+              </Link>
+            </div>
 
           {error && (
             <p className="text-red-500 bg-gray-100 p-1 rounded text-sm">{error}</p>
