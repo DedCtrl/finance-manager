@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-
+import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -11,4 +11,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Force mobile browsers to remember the login
+setPersistence(auth, browserLocalPersistence);
 export default app;

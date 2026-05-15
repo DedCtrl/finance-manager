@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
-
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import app from "../FirebaseConfig";
 
 const SignIn = () => {
@@ -21,33 +14,22 @@ const SignIn = () => {
   const provider = new GoogleAuthProvider();
 
   const handleGoogleSignIn = async () => {
-    setError("");
     try {
-      // Always use popup. Bypasses mobile browser cookie blockers.
       await signInWithPopup(auth, provider);
+      // Removed navigate! App.js handles it.
     } catch (error) {
       setError("Google sign-in failed. Please try again.");
-      console.error(error);
     }
   };
 
   const signIn = async () => {
     setError("");
-    setUserCreated("");
-
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      await updateProfile(userCredential.user, {
-        displayName: name,
-      });
-
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(userCredential.user, { displayName: name });
       await userCredential.user.reload();
       setUserCreated("User created successfully!");
+      // Removed navigate! App.js handles it.
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         setError("Email already in use. Please login or use a different email.");
@@ -72,12 +54,11 @@ const SignIn = () => {
         Finance Manager
       </div>
 
-      <div className="w-full max-w-md mt-4">
-        <div className="flex bg-[#ECECF0] p-2 items-center rounded-2xl">
+      <div className="w-full max-w-md">
+        <div className="flex bg-[#ECECF0] p-2 items-center rounded-2xl cursor-pointer">
           <div className="w-1/2 flex font-medium items-center justify-center py-1">
             <Link to="/">Login</Link>
           </div>
-
           <div className="w-1/2 flex items-center justify-center font-medium bg-white rounded-2xl py-1">
             <Link to="/signup">Signup</Link>
           </div>
@@ -89,15 +70,11 @@ const SignIn = () => {
         >
           <div className="mt-2">
             <h2 className="font-medium">Create an account</h2>
-            <h4 className="text-[#717182] text-sm">
-              Enter your details to get started
-            </h4>
+            <h4 className="text-[#717182] text-sm">Enter your details to get started</h4>
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="font-medium" htmlFor="Name">
-              Full Name
-            </label>
+            <label className="font-medium" htmlFor="Name">Full Name</label>
             <input
               onChange={(e) => setName(e.target.value)}
               required
@@ -109,9 +86,7 @@ const SignIn = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="font-medium" htmlFor="Email">
-              Email
-            </label>
+            <label className="font-medium" htmlFor="Email">Email</label>
             <input
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -123,9 +98,7 @@ const SignIn = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="font-medium" htmlFor="password">
-              Password
-            </label>
+            <label className="font-medium" htmlFor="password">Password</label>
             <input
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -136,19 +109,10 @@ const SignIn = () => {
             />
           </div>
 
-          {error && (
-            <p className="text-red-500 bg-gray-100 p-2 rounded text-sm">
-              {error}
-            </p>
-          )}
+          {error && <p className="text-red-500 bg-gray-100 p-0.5 rounded text-sm">{error}</p>}
+          {userCreated && <p className="text-green-500 bg-gray-100 p-0.5 rounded text-sm">{userCreated}</p>}
 
-          {userCreated && (
-            <p className="text-green-500 bg-gray-100 p-2 rounded text-sm">
-              {userCreated}
-            </p>
-          )}
-
-          <button className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition">
+          <button className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800">
             Signup
           </button>
 
