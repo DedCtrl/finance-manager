@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
   onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  updateProfile,
+  signInWithEmailAndPassword, // (or createUserWithEmailAndPassword in SignIn)
   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
+  getRedirectResult // <--- Add this
 } from "firebase/auth";
 
 import app from "../FirebaseConfig";
@@ -29,15 +29,37 @@ const SignIn = () => {
   );
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigate("/Dashboard");
+    let unsubscribe;
+
+    const checkRedirectAndAuthState = async () => {
+      try {
+        // 1. Wait for Firebase to process the redirect FIRST
+        // On desktop (popup), this instantly resolves to null.
+        await getRedirectResult(auth);
+      } catch (err) {
+        setError("Google sign-in failed during redirect.");
+        setLoading(false);
       }
 
-      setLoading(false);
-    });
+      // 2. Now it's safe to listen to the auth state
+      unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          navigate("/Dashboard");
+        } else {
+          // Only stop the loading animation if we are absolutely sure there is no user
+          setLoading(false);
+        }
+      });
+    };
 
-    return () => unsubscribe();
+    checkRedirectAndAuthState();
+
+    // Cleanup subscription on unmount
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, [auth, navigate]);
 
   const handleGoogleSignIn = async () => {
