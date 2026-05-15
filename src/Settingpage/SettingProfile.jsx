@@ -9,6 +9,8 @@ const SettingProfile = () => {
   const [userEmail] = useState(user.email)
   const [userName] = useState(user.displayName)
 
+  console.log(user)
+
   return (
     <div className="w-full border border-gray-200 shadow-md rounded-2xl px-4 sm:px-6 md:px-8 py-6 mt-4">
       {/* Heading */}
@@ -21,7 +23,11 @@ const SettingProfile = () => {
       <div className="flex items-center gap-4 mt-5">
         {/* Avatar */}
         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-700 flex items-center justify-center text-white text-2xl sm:text-3xl font-medium shrink-0">
-          {userName.charAt(0).toUpperCase()}
+          {user.photoURL ? (
+            <img src={user.photoURL} alt="User Avatar" className="w-full h-full rounded-full object-cover" />
+          ) : (
+            userName ? userName.charAt(0).toUpperCase() : "U"
+          )}
         </div>
 
         {/* User Info */}
