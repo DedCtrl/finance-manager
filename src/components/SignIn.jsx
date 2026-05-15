@@ -139,7 +139,7 @@ const SignIn = () => {
 
   return (
     <div className="min-h-screen w-full flex items-center flex-col justify-center bg-[#F7FAFF] px-4 py-8">
-      <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r py-1 from-blue-600 to-purple-600 bg-clip-text text-transparent">
+      <div className="text-3xl md:text-4xl font-bold bg-linear-to-r py-1 from-blue-600 to-purple-600 bg-clip-text text-transparent">
         Finance Manager
       </div>
 
