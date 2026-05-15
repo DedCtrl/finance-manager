@@ -261,7 +261,7 @@ const SignIn = () => {
               className="w-5 h-5"
             />
 
-            Continue with Google
+            Continue with Google..
           </button>
         </form>
       </div>
