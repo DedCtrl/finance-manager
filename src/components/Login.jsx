@@ -56,6 +56,36 @@ useEffect(() => {
     setError("Google sign-in failed. Please try again.");
   });
 }, []);
+
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  getRedirectResult(auth).then((result) => {
+    if (result?.user) {
+      navigate('/Dashboard');
+    } else {
+      setLoading(false);
+    }
+  }).catch((error) => {
+    setError("Google sign-in failed. Please try again.");
+    setLoading(false);
+  });
+}, []);
+
+if (loading) {
+  return (
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#F7FAFF]">
+      <div className="flex flex-col items-center gap-3">
+        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+        <p className="text-gray-500 text-sm">Signing you in...</p>
+      </div>
+    </div>
+  );
+}
+
+
+
+
   return (
     <div className='min-h-screen w-screen flex items-center flex-col justify-center bg-[#F7FAFF] px-4 py-8'>
       <div className='text-3xl md:text-4xl font-bold bg-linear-to-r py-1 from-blue-600 to-purple-600 bg-clip-text text-transparent'>
