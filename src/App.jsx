@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { useNavigate, Routes, Route } from 'react-router-dom'
+import { useNavigate, Routes, Route, useLocation } from 'react-router-dom' // <-- Added useLocation
 import Login from './components/Login'
 import SignIn from './components/SignIn'
 import Dashboard from './components/Dashboard';
@@ -13,8 +13,10 @@ const App = () => {
   const [loading, setLoading] = useState(true)
   const auth = getAuth()
   const navigate = useNavigate()
+  const location = useLocation() // <-- Initialize location here
   const [isOnline, setIsOnline] = useState(navigator.onLine)
 
+  // Handle Online/Offline Status
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
@@ -27,29 +29,34 @@ const App = () => {
     }
   }, [])
 
+  // Handle Authentication and Routing
   useEffect(() => {
     if (!navigator.onLine) return; // stop here if no internet
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      const currentPath = window.location.pathname;
+      // 👇 Use React Router's location instead of window.location
+      // This ignores the Vite base path and just looks at the actual route!
+      const currentPath = location.pathname;
 
       if (user) {
-        // Only redirect to Dashboard if they are currently on the Login or Signup pages
+        // If logged in and on Login/Signup, push to Dashboard
         if (currentPath === '/' || currentPath === '/signup') {
-          navigate('/Dashboard'); // Fixed capital 'D'
+          navigate('/Dashboard'); 
         }
       } else {
-        // Only redirect to Login if they are trying to peek at a private page
+        // If logged out and trying to peek at a private page, kick back to Login
         if (currentPath !== '/' && currentPath !== '/signup') {
           navigate('/');
         }
       }
+      
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, [auth, navigate])
+  }, [auth, navigate, location.pathname]) // <-- Added location.pathname to dependencies
 
+  // Loading Screen
   if (loading) return (
     <div className='h-screen w-full flex flex-col items-center justify-center'>
       <h1 className='text-xl font-semibold mb-4'>Finance Manager</h1>
@@ -70,6 +77,7 @@ const App = () => {
     </div>
   )
 
+  // Routes
   return (
     <div>
       <Routes>
