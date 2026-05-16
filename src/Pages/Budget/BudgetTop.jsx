@@ -29,7 +29,7 @@ const [DropDown, setDropDown] = useState(false)
       
     </div>
 {DropDown && (
-  <div className="absolute right-0 w-52 lg:w-full lg:px-3 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50">
+  <div className="absolute right-0 w-52  bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50">
     <button
       onClick={() => { setAddBudget(true); setDropDown(false); }}
       className="w-full text-left px-4 py-3 hover:bg-gray-100 transition">
