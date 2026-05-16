@@ -98,6 +98,22 @@ const remaning = totalBudget - totalSpent
 
 const finalProgress = Number(progress.toFixed(1))
 
+const [progressBarWidth, setprogressBarWidth] = useState(0)
+const [progressBarColor, setprogressBarColor] = useState('bg-black')
+const progressBar = ()=>{
+  if(progress > 100){
+setprogressBarWidth(100)
+setprogressBarColor('bg-red-600')
+  }else{
+    setprogressBarWidth(finalProgress)
+    setprogressBarColor('bg-black')
+  }
+}
+
+useEffect(()=>{
+  progressBar()
+}, [totalSpent, totalBudget])
+
   return (
     <div className='w-full px-4 md:px-8'>
         <div className='w-full flex flex-col justify-between bg-white border px-4 md:px-6 py-4 border-gray-200 shadow-md rounded-xl gap-4'>
@@ -125,7 +141,7 @@ const finalProgress = Number(progress.toFixed(1))
                 <h1 className='text-gray-500 text-sm'>{finalProgress || 0}%</h1>
               </div>
               <div className='bg-[#CDCCD0] w-full h-3 mt-2 rounded-xl'>
-                <div className='bg-black h-full rounded-xl' style={{width:`${finalProgress || 0}%`}}></div>
+                <div className={`${progressBarColor} h-full rounded-xl`} style={{width:`${progressBarWidth || 0}%`}}></div>
               </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ const AddAmountPg = ({ setaddAmountTrigger,Remaining, setAmountToSave, amountToS
 
   const auth = getAuth()
   const db = getDatabase(app)
+  const [error, setError] = useState('')
 
   const addAmount = () => {
     const user = auth.currentUser;
@@ -47,22 +48,27 @@ const AddAmountPg = ({ setaddAmountTrigger,Remaining, setAmountToSave, amountToS
             </label>
             <input
               type="number"
+              min="0"
               placeholder="0.00"
               className="w-full bg-gray-100 rounded-lg px-4 py-3 text-gray-600 focus:outline-none"
               onChange={(e) => {
-                if(e.target.value < 0){
-                  setAmountToSave(e.target.value)
-                }
-              }}
+  const value = parseFloat(e.target.value);
+  if (value > 0) {
+    setAmountToSave(value);
+  }
+}}
             />
           </div>
+          {error && (
+            <p className="text-red-500 text-sm bg-red-50 p-2 rounded-lg">{error}</p>
+          )}
 
           <button
             onClick={() => {
               if(amountToSave > 0 && amountToSave <= Remaining){
                 addAmount()
-              } else {
-                alert(`Please enter an amount between 0 and ${Remaining}`)
+              } else { 
+                setError(`Please enter an amount between 0 and ${Remaining}`)
               }
             }}
             className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-900 transition">

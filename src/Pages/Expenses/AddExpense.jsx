@@ -10,7 +10,7 @@ const [category, setCategory] = useState("");
 const [type, setType] = useState("Expense");
 const [description, setDescription] = useState("");
 const [date, setDate] = useState("");
-
+const [error, setError] = useState("")
 
 
   const auth = getAuth()
@@ -18,6 +18,22 @@ const [date, setDate] = useState("");
   const db = getDatabase(app);
 
   const addTransaction =()=>{
+    setError("")
+
+    if(!category || category === "Select a category"){
+      setError("Please select a category.")
+      return;
+    }else if(!amount || parseFloat(amount) <= 0){
+      setError("Please enter a valid amount.")
+      return;
+    }else if(!date){
+      setError("Please select a date.")
+      return;
+    }else if(!description){
+      setError("Please enter a description.")
+      return;
+    }
+
     const user = auth.currentUser;
   const uid = user.uid
 
@@ -37,8 +53,9 @@ setType("Expense");
 setDescription("");
 setDate("");
     })
-
   }
+
+  
 
 
 
@@ -98,7 +115,7 @@ setDate("");
     value={category}
     onChange={(e) => setCategory(e.target.value)}
     className="w-full bg-gray-100 rounded-lg px-4 py-2 text-gray-700 outline-none">
-      <option>Select a category</option>
+      <option disabled value="">Select a category</option>
       <option value="food">Food & Dining</option>
               <option value="transport">Transportation</option>
               <option value="shopping">Shopping</option>

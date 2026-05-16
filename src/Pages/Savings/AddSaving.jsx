@@ -8,10 +8,18 @@ const AddSaving = ({setAddSaving, AddSaving}) => {
     const [goalName, setGoalName] = useState('')
     const [goalAmount, setGoalAmount] = useState('')
     const [savedAmount, setSavedAmount] = useState(0)
+    const [error, setError] = useState('')
     const auth = getAuth()
     const db = getDatabase(app)
 
     const addGoal =()=>{
+        setError('')
+        if(!goalName){
+            setError("Please enter a goal name.")
+        }else if(!goalAmount || parseFloat(goalAmount) <= 0){
+            setError("Please enter a valid goal amount.")
+        }
+
         const user = auth.currentUser;
   const uid = user.uid
         const newDocRef = push(ref(db,`users/${uid}/goals`))
@@ -59,6 +67,9 @@ const AddSaving = ({setAddSaving, AddSaving}) => {
               className="w-full bg-gray-100 rounded-lg px-4 py-3 text-gray-600 focus:outline-none"
             />
           </div>
+            {error && (
+            <p className="text-red-500 text-sm bg-red-50 p-2 rounded-lg">{error}</p>
+          )}
 
           <button onClick={addGoal} className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-gray-900 transition">
             Add Goal
