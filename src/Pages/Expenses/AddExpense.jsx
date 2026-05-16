@@ -105,8 +105,9 @@ setDate("");
     />
   </div>
 
-  {/* Category */}
-  <div className="mb-4">
+  
+
+  {type === 'Expense' && (<div className="mb-4">
     <label className="block text-sm font-medium text-gray-900 mb-1">
       Category
     </label>
@@ -115,18 +116,54 @@ setDate("");
     value={category}
     onChange={(e) => setCategory(e.target.value)}
     className="w-full bg-gray-100 rounded-lg px-4 py-2 text-gray-700 outline-none">
-      <option disabled value="">Select a category</option>
-      <option value="food">Food & Dining</option>
-              <option value="transport">Transportation</option>
-              <option value="shopping">Shopping</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="bills">Bills & Utilities</option>
-              <option value="healthcare">Healthcare</option>
-              <option value="education">Education</option>
-              <option value="salary">Salary</option>
-              <option value="other">Other</option>
+      <option disabled value="" disabled>
+        Select a category
+      </option>
+      <option value="groceries">Groceries</option>
+<option value="food">Food & Dining</option>
+<option value="transport">Transportation</option>
+<option value="rent">Rent</option>
+<option value="electricity">Electricity</option>
+<option value="internet">Internet</option>
+<option value="healthcare">Healthcare</option>
+<option value="shopping">Shopping</option>
+<option value="entertainment">Entertainment</option>
+<option value="education">Education</option>
+<option value="travel">Travel</option>
+<option value="investments">Investments</option>
+<option value="emi">EMI</option>
+<option value="personalcare">Personal Care</option>
+<option value="other">Other</option>
     </select>
-  </div>
+  </div>)}
+
+{type === 'Income' && ( <div className="mb-4">
+    <label className="block text-sm font-medium text-gray-900 mb-1">
+      Category
+    </label>
+    <select
+    required
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+    className="w-full bg-gray-100 rounded-lg px-4 py-2 text-gray-700 outline-none">
+      <option  value="" disabled>
+        Select a category
+      </option>
+      <option value="salary">Salary</option>
+<option value="freelance">Freelance</option>
+<option value="business">Business</option>
+<option value="rental">Rental Income</option>
+<option value="dividends">Dividends</option>
+<option value="interest">Interest</option>
+<option value="bonus">Bonus</option>
+<option value="gift">Gift & Allowance</option>
+<option value="refund">Refund</option>
+<option value="otherincome">Other Income</option>
+    </select>
+  </div>)}
+
+
+
 
   {/* Description */}
   <div className="mb-4">

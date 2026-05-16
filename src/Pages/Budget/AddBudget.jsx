@@ -52,6 +52,8 @@ const AddBudget = ({ setAddBudget }) => {
         <p className="text-sm text-gray-500 mt-1">Set a spending limit for a category</p>
 
         <div className="mt-6 space-y-4">
+
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
             <select
@@ -60,15 +62,21 @@ const AddBudget = ({ setAddBudget }) => {
               onChange={(e) => setCategory(e.target.value)}
             >
               <option value="" disabled>Select a category</option>
-              <option value="food">Food & Dining</option>
-              <option value="transport">Transportation</option>
-              <option value="shopping">Shopping</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="bills">Bills & Utilities</option>
-              <option value="healthcare">Healthcare</option>
-              <option value="education">Education</option>
-              <option value="salary">Salary</option>
-              <option value="other">Other</option>
+              <option value="groceries">Groceries</option>
+<option value="food">Food & Dining</option>
+<option value="transport">Transportation</option>
+<option value="rent">Rent</option>
+<option value="electricity">Electricity</option>
+<option value="internet">Internet</option>
+<option value="healthcare">Healthcare</option>
+<option value="shopping">Shopping</option>
+<option value="entertainment">Entertainment</option>
+<option value="education">Education</option>
+<option value="travel">Travel</option>
+<option value="investments">Investments</option>
+<option value="emi">EMI</option>
+<option value="personalcare">Personal Care</option>
+<option value="other">Other</option>
             </select>
           </div>
 
